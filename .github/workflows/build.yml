@@ -14,16 +14,16 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v3
 
-    - name: Setup MSBuild
+    - name: Setup MSBuild (for cl.exe)
       uses: microsoft/setup-msbuild@v1.1
 
-    - name: Build DLL
-      run: msbuild CombinedDLL.vcxproj /p:Configuration=Release /p:Platform=x64
+    - name: Build DLL with cl.exe
+      shell: cmd
+      run: |
+        cl /LD taha.cpp /Fe:Combined.dll
 
     - name: Upload DLL Artifact
       uses: actions/upload-artifact@v4
       with:
         name: CombinedDLL
-        path: x64/Release/Combined.dll
-
-
+        path: Combined.dll
