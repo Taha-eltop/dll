@@ -1,0 +1,32 @@
+name: Build Combined DLL
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.1
+
+    - name: Setup Visual Studio
+      uses: microsoft/setup-msbuild@v1.1
+      with:
+        vs-version: '[17.0,18.0)'
+
+    - name: Build DLL
+      run: msbuild CombinedDLL.sln /p:Configuration=Release /p:Platform=x64
+
+    - name: Upload DLL Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: CombinedDLL
+        path: x64/Release/Combined.dll
