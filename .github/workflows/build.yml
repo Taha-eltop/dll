@@ -14,20 +14,17 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v3
 
-    - name: Setup MSBuild (for cl.exe)
+    - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.1
 
-    - name: Build DLL with cl.exe
-      shell: cmd
-      run: |
-        cl /LD taha.cpp /Fe:Combined.dll
+    - name: Setup Developer Command Prompt
+      uses: ilammy/msvc-dev-cmd@v1
 
-    - name: Upload DLL Artifacts
+    - name: Build DLL
+      run: cl /LD taha.cpp /Fe:Combined.dll
+
+    - name: Upload DLL Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: AllDLLs
-        path: |
-          Combined.dll
-          dinput8.dll
-          dinput8_2.dll
-
+        name: CombinedDLL
+        path: Combined.dll
