@@ -20,8 +20,9 @@ jobs:
     - name: Setup Developer Command Prompt
       uses: ilammy/msvc-dev-cmd@v1
 
-    - name: Build DLL
-      run: cl /LD taha.cpp /Fe:Combined.dll
+    - name: Build DLL (x64)
+      run: cl /LD taha.cpp /Fe:Combined.dll /favor:INTEL64
+
 
     - name: Upload DLL Artifact
       uses: actions/upload-artifact@v4
