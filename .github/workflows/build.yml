@@ -22,8 +22,12 @@ jobs:
       run: |
         cl /LD taha.cpp /Fe:Combined.dll
 
-    - name: Upload DLL Artifact
+    - name: Upload DLL Artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: CombinedDLL
-        path: Combined.dll
+        name: AllDLLs
+        path: |
+          Combined.dll
+          dinput8.dll
+          dinput8_2.dll
+
