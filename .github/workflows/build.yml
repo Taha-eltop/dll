@@ -1,4 +1,4 @@
-name: Build Combined DLL
+name: Build DLL
 
 on:
   push:
@@ -17,13 +17,8 @@ jobs:
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.1
 
-    - name: Setup Visual Studio
-      uses: microsoft/setup-msbuild@v1.1
-      with:
-        vs-version: '[17.0,18.0)'
-
     - name: Build DLL
-      run: msbuild CombinedDLL.sln /p:Configuration=Release /p:Platform=x64
+      run: msbuild CombinedDLL.vcxproj /p:Configuration=Release /p:Platform=x64
 
     - name: Upload DLL Artifact
       uses: actions/upload-artifact@v4
